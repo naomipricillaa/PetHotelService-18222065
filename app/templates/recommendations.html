@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <h1>PawMates</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="/search" class="nav-link">Hotels</a>
+            <a href="/recommendations" class="nav-link active">Recommendation</a>
+            <a href="/home" class="nav-link">Home</a>
+            <a href="#" id="logoutBtn" class="nav-link">Logout</a>
+        </nav>
+    </header>
+
+    <main class="recommendations-container">
+        <h1>Recommended Hotels for Your Pet</h1>
+        <!-- <p class="subtitle">Based on your search history</p> -->
+        
+        <div id="recommendationsLoading" class="loading-spinner">
+            Loading recommendations...
+        </div>
+        
+        <div id="recommendationsList" class="recommendations-grid">
+            <!-- Recommendations will be populated here -->
+        </div>
+        
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch('/auth/logout', {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    localStorage.removeItem('user_id');
+                    window.location.href = '/';
+                }
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = localStorage.getItem('user_id');
+            const loadingElement = document.getElementById('recommendationsLoading');
+            const recommendationsList = document.getElementById('recommendationsList');
+            const noRecommendations = document.getElementById('noRecommendations');
+        
+            if (!userId) {
+                window.location.href = '/';
+                return;
+            }
+        
+            try {
+                const response = await fetch(`/api/recommendations/${userId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch recommendations');
+                }
+                
+                const data = await response.json();
+                loadingElement.classList.add('hidden');
+        
+                if (!data.recommendations || data.recommendations.length === 0) {
+                    noRecommendations.innerHTML = `
+                        <div class="no-results">
+                            <p>${data.message || 'No recommendations available yet. Try searching for some hotels first!'}</p>
+                            <a href="/search" class="btn-primary">Search Hotels</a>
+                        </div>
+                    `;
+                    noRecommendations.classList.remove('hidden');
+                    return;
+                }
+        
+                const recommendationsHTML = data.recommendations.map(hotel => `
+                    <div class="hotel-card">
+                        <div class="hotel-info">
+                            <h3>${hotel.name}</h3>
+                            <p class="location">📍 ${hotel.location}</p>
+                            <p class="price">💰 Rp ${hotel.price_per_night.toLocaleString('id-ID')}/malam</p>
+                            <div class="hotel-features">
+                                <p>🐾 Hewan: ${hotel.pet_categories.join(', ')}</p>
+                                <p>📏 Ukuran: ${hotel.pet_sizes.join(', ')}</p>
+                            </div>
+                            <div class="score-badge ${getScoreClass(hotel.recommendation_score)}">
+                                Match Score: ${Math.round(hotel.recommendation_score * 100)}%
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+        
+                // Add message about number of matches
+                const messageHTML = `
+                    <div class="results-message">
+                        <h2>${data.message}</h2>
+                    </div>
+                `;
+        
+                recommendationsList.innerHTML = messageHTML + recommendationsHTML;
+            } catch (error) {
+                console.error('Error fetching recommendations:', error);
+                loadingElement.innerHTML = 'Error loading recommendations. Please try again later.';
+            }
+        });
+        
+        // Function to determine score badge color
+        function getScoreClass(score) {
+            const percentage = score * 100;
+            if (percentage >= 80) return 'score-excellent';
+            if (percentage >= 65) return 'score-good';
+            return 'score-moderate';
+        }
+    </script>
+        
+    <style>
+        .recommendations-container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .hotel-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            background: white;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .hotel-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .hotel-info {
+            padding: 1rem;
+        }
+
+        .hotel-info h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .location {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 1rem;
+        }
+
+        .hotel-features {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #2c5282;
+            color: white;
+            border-radius: 999px;
+            font-size: 0.9rem;
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #2c5282;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: #2a4365;
+        }
+
+        .results-message {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+    
+        .score-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-weight: bold;
+            color: white;
+        }
+    
+        .score-excellent {
+            background-color: #059669; /* green */
+        }
+    
+        .score-good {
+            background-color: #0284c7; /* blue */
+        }
+    
+        .score-moderate {
+            background-color: #6366f1; /* indigo */
+        }
+    
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+    
+        .btn-primary {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #2c5282;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+    
+        .btn-primary:hover {
+            background: #2a4365;
+        }
+    </style>
+</body>
+</html>
