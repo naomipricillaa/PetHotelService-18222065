@@ -16,7 +16,7 @@
             <a href="/recommendations" class="nav-link">Recommendation</a>
             <a href="/search" class="nav-link">Booking</a>
             <a href="/home" class="nav-link">Home</a>
-            <a href="/profile">Profile</a>
+            <a href="#" id="logoutBtn" class="nav-link">Logout</a>
         </nav>
     </header>
     <div class="home-container">
@@ -29,6 +29,22 @@
         if (userId) {
             localStorage.setItem('user_id', userId);
         }
+
+        // Add logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch('/auth/logout', {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    localStorage.removeItem('user_id');
+                    window.location.href = '/';
+                }
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        });
     </script>
 </body>
 </html>

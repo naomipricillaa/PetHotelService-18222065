@@ -30,6 +30,15 @@ def login_with_google():
     logging.info(f"Generated Google OAuth URL: {auth_url}")
     return RedirectResponse(auth_url)
 
+@router.post("/logout")
+async def logout():
+    try:
+        logging.info("Processing logout request")
+        return {"message": "Logged out successfully"}
+    except Exception as e:
+        logging.error(f"Error during logout: {str(e)}")
+        raise HTTPException(status_code=500, detail="Logout failed")
+
 async def get_or_create_user(email: str, name: str) -> Optional[dict]:
     try:
         # First, try to find the existing user

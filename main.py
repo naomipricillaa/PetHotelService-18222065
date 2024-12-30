@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
-from app.routes import auth
+from app.routes import auth, search
 from app.config import supabase
 from fastapi.staticfiles import StaticFiles
 import logging
@@ -12,6 +12,7 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(search.router, tags=["search"])
 templates = Jinja2Templates(directory="app/templates")
 
 logging.basicConfig(level=logging.INFO)

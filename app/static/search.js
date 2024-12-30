@@ -1,11 +1,10 @@
 document.getElementById("searchForm").addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    // Get user_id from localStorage
     const user_id = localStorage.getItem("user_id");
     if (!user_id) {
         alert("Please log in first");
-        window.location.href = "/"; // Redirect to login page
+        window.location.href = "/";
         return;
     }
 
@@ -26,32 +25,103 @@ document.getElementById("searchForm").addEventListener("submit", async (event) =
     };
 
     try {
-        console.log("Sending search data:", searchData);
+        // Save search history
+        await saveSearch(searchData);
         
-        const response = await fetch("/save-search", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(searchData),
-        });
-
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.detail || "Failed to save search");
-        }
-
-        alert("Search saved successfully!");
+        // Search for hotels
+        const hotels = await searchHotels(searchData);
         
-        // Optional: Clear form
-        document.getElementById("searchForm").reset();
+        // Display results
+        displayHotels(hotels);
         
     } catch (error) {
-        console.error("Error saving search:", error);
+        console.error("Error:", error);
         alert(`Error: ${error.message}`);
     }
 });
+
+async function saveSearch(searchData) {
+    const response = await fetch("/save-search", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchData),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || "Failed to save search");
+    }
+
+    return response.json();
+}
+
+async function searchHotels(searchData) {
+    const response = await fetch("/search-hotels", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchData),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || "Failed to search hotels");
+    }
+
+    return response.json();
+}
+
+function displayHotels(result) {
+    const resultsContainer = document.getElementById("hotelResults");
+    resultsContainer.innerHTML = ""; // Clear previous results
+
+    if (!result.hotels || result.hotels.length === 0) {
+        resultsContainer.innerHTML = `
+            <div class="no-results">
+                <h3>No hotels found matching your criteria</h3>
+            </div>
+        `;
+        return;
+    }
+
+    // Add results title
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "results-title";
+    titleDiv.innerHTML = `<h3>${result.message}</h3>`;
+    resultsContainer.appendChild(titleDiv);
+
+    // Create hotel cards
+    const hotelsGrid = document.createElement("div");
+    hotelsGrid.className = "hotels-grid";
+
+    result.hotels.forEach(hotel => {
+        const hotelCard = document.createElement("div");
+        hotelCard.className = "hotel-card";
+        hotelCard.innerHTML = `
+            <h3>${hotel.name}</h3>
+            <div class="hotel-location">📍 ${hotel.location}</div>
+            <div class="hotel-price">💰 Rp ${hotel.price_per_night.toLocaleString('id-ID')} / malam</div>
+            <div class="hotel-rating">⭐ ${hotel.rating} / 5.0</div>
+            <div class="hotel-pets">
+                <div>🐾 Accepts: ${hotel.pet_categories.join(', ')}</div>
+                <div>📏 Sizes: ${hotel.pet_sizes.join(', ')}</div>
+            </div>
+            <div class="hotel-description">${hotel.description}</div>
+            <div class="hotel-amenities">
+                <strong>Amenities:</strong>
+                <ul>
+                    ${hotel.amenities.map(amenity => `<li>${amenity}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+        hotelsGrid.appendChild(hotelCard);
+    });
+
+    resultsContainer.appendChild(hotelsGrid);
+}
 
 // Add this to verify user_id is properly stored
 document.addEventListener("DOMContentLoaded", () => {

@@ -16,7 +16,7 @@
             <a href="/recommendations" class="nav-link">Recommendation</a>
             <a href="/search" class="nav-link active">Booking</a>
             <a href="/home" class="nav-link">Home</a>
-            <a href="/profile" class="nav-link">Profile</a>
+            <a href="#" id="logoutBtn" class="nav-link">Logout</a>
         </nav>
     </header>
 
@@ -25,7 +25,6 @@
             <h1 class="title">Find the perfect stay for your pets!</h1>
             <p class="subtitle"></p>
             <form id="searchForm" class="form-container">
-                <!-- Remove the hidden input and handle user_id in JavaScript -->
                 <div class="form-group">
                     <label for="location">Location:</label>
                     <input type="text" id="location" placeholder="Insert location" required>
@@ -53,5 +52,21 @@
     </main>
 
     <script src="/static/search.js"></script>
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch('/auth/logout', {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    localStorage.removeItem('user_id');
+                    window.location.href = '/';
+                }
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        });
+    </script>
 </body>
 </html>
