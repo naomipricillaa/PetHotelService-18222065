@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari Hotel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="logo">PawMates</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="/recommendations" class="nav-link">Recommendation</a>
+            <a href="/search" class="nav-link active">Booking</a>
+            <a href="/home" class="nav-link">Home</a>
+            <a href="/profile" class="nav-link">Profile</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="search-container">
+            <h1 class="title">Find the perfect stay for your pets!</h1>
+            <p class="subtitle"></p>
+            <form id="searchForm" class="form-container">
+                <!-- Remove the hidden input and handle user_id in JavaScript -->
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" placeholder="Insert location" required>
+                </div>
+                <div class="form-group">
+                    <label for="minPrice">Minimum Price:</label>
+                    <input type="number" id="minPrice" placeholder="Insert minimum price">
+                </div>
+                <div class="form-group">
+                    <label for="maxPrice">Maximum Price:</label>
+                    <input type="number" id="maxPrice" placeholder="Insert maximum price">
+                </div>
+                <div class="form-group">
+                    <label for="petCategory">Pet Category:</label>
+                    <input type="text" id="petCategory" placeholder="E.g.: Anjing, Kucing">
+                </div>
+                <div class="form-group">
+                    <label for="petSize">Pet Size:</label>
+                    <input type="text" id="petSize" placeholder="E.g.: Kecil, Besar">
+                </div>           
+                <button type="submit" class="btn-submit">Cari Hotel</button>
+            </form>
+        </section>
+        <section id="hotelResults" class="results-container"></section>
+    </main>
+
+    <script src="/static/search.js"></script>
+</body>
+</html>

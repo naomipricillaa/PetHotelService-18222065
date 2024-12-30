@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            color: #333;
+        }
+
+        .login-container h1 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .login-container label {
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .login-container input {
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-container button {
+            background-color: #2575fc;
+            color: #fff;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: #1b5dbf;
+        }
+
+        .login-container .divider {
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-container .divider::before,
+        .login-container .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ccc;
+        }
+
+        .login-container .divider span {
+            margin: 0 0.8rem;
+            color: #666;
+        }
+
+        .login-container .google-login {
+            background-color: #db4437;
+        }
+
+        .login-container .google-login:hover {
+            background-color: #b33629;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="/auth/login" method="get">
+            <button type="submit" class="google-login">Login with Google</button>
+        </form>
+    </div>
+
+    <script>
+        async function fetchCurrentUser() {
+            const response = await fetch('/auth/current_user');
+            if (response.ok) {
+                const user = await response.json();
+                document.body.innerHTML = `<h1>Welcome, ${user.name}</h1>`;
+            } else {
+                console.log("User not logged in");
+            }
+        }
+        fetchCurrentUser();
+    </script>    
+</body>
+</html>
