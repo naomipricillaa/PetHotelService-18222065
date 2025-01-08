@@ -239,32 +239,3 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(247, 117, 169, 0.2);
 }
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .header {
-        padding: 1rem;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .nav-links {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    .search-container {
-        margin: 2rem 1rem;
-        padding: 1.5rem;
-    }
-
-    .form-container {
-        grid-template-columns: 1fr;
-    }
-
-    .hotel-card {
-        margin: 1rem;
-    }
-}
