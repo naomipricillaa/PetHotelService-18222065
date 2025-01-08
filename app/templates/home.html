@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>PawMates - Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        /* Add any additional styles here */
+    </style>
 </head>
 <body>
     <header class="header">
@@ -19,32 +22,61 @@
             <a href="#" id="logoutBtn" class="nav-link">Logout</a>
         </nav>
     </header>
+
     <div class="home-container">
         <h1>Hello, PawMates!</h1>
     </div>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const userId = urlParams.get('user_id');
-        if (userId) {
-            localStorage.setItem('user_id', userId);
-        }
+    <!-- First load jQuery as it's often needed for widgets -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        // Add logout functionality
-        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+    <!-- Music Widget Integration -->
+    <script>
+        window.MUSICMATE_API_KEY = 'mk_Uq70iC6-V4sOZZzZiF_t7Nx7V6FIDgOOLd_FTOEAH28';
+    </script>
+    <script src="https://spotify-bot.azurewebsites.net/static/js/widget-loader.js"></script>
+
+    <!-- User Management Scripts -->
+    <script>
+        // Wait for document to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Store user ID if present in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('user_id');
+            if (userId) {
+                localStorage.setItem('user_id', userId);
+            }
+
+            // Add logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+        });
+
+        // Separate logout handler function
+        async function handleLogout(e) {
             e.preventDefault();
             try {
                 const response = await fetch('/auth/logout', {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include' // Important for handling cookies
                 });
+                
                 if (response.ok) {
                     localStorage.removeItem('user_id');
                     window.location.href = '/';
+                } else {
+                    console.error('Logout failed:', await response.text());
                 }
             } catch (error) {
-                console.error('Logout failed:', error);
+                console.error('Logout error:', error);
+                alert('Failed to logout. Please try again.');
             }
-        });
+        }
     </script>
 </body>
 </html>
