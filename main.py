@@ -9,12 +9,13 @@ import logging
 # Initialize FastAPI app
 app = FastAPI()
 
-# Allowed origins (ubah URL di sini dengan URL yang Anda izinkan)
+# Allowed origins (Menambahkan URL dengan URL yang diizinkan untuk mengakses API)
 allowed_origins = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "https://pet-hotel-service-18222065.vercel.app",
-    "https://pethotelservice.up.railway.app" 
+    "https://pethotelservice.up.railway.app" ,
+    "https://finalyze.up.railway.app/"
 ]
 
 # Add CORS middleware

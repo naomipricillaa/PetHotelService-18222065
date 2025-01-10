@@ -5,10 +5,32 @@ from app.config import supabase
 import logging
 from typing import List, Dict
 from datetime import datetime, timedelta
+from fastapi import APIRouter, Depends, HTTPException, Request
+from ..middleware.api_auth import verify_api_key, generate_api_key
+from typing import Dict
+
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
 logger = logging.getLogger(__name__)
+
+@router.get("/generate-api-key/{client_name}")
+async def create_api_key(client_name: str):
+    """Endpoint untuk generate API key baru"""
+    api_key = generate_api_key(client_name)
+    return {"client_name": client_name, "api_key": api_key}
+
+@router.get("/recommendations", dependencies=[Depends(verify_api_key)])
+async def get_recommendations(request: Request):
+    """Protected recommendations endpoint"""
+    client_name = request.state.client
+    # Implementasi logic rekomendasi Anda di sini
+    return {
+        "client": client_name,
+        "recommendations": [
+            # data rekomendasi Anda
+        ]
+    }
 
 def get_user_search_history(user_id: str) -> List[Dict]:
     try:
