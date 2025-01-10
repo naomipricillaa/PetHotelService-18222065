@@ -3,37 +3,46 @@
 **Name**: Naomi Pricilla Agustine  
 **Student ID**: 18222065
 
+---
+
 ## Description
-PawMates is a web-based application designed to help pet owners find the perfect pet-friendly hotels for their furry friends. The system provides personalized hotel recommendations based on user preferences and search history, making it easier for pet owners to find accommodations that suit both their needs and their pets' requirements.
+PawMates is a web-based application designed to help pet owners to find the perfect pet-friendly hotels for their furry friends. The system provides personalized hotel recommendations based on user preferences and search history, making it easier for pet owners to find accommodations that suit both their needs and their pets' requirements.
+
+---
 
 ## Features
 1. **User Authentication**
-   - Google OAuth integration for secure login to access the platform.
-   - Personalized user experience with session management.
+   - Google OAuth integration for secure login to access the platform
+   - Personalized user experience with session management
 
 2. **Hotel Search**
-   - Location-based search.
-   - Price range filtering.
-   - Pet category filtering (dogs, cats, etc.).
-   - Pet size accommodation filtering.
-   - Real-time search results.
+   - Location-based search
+   - Price range filtering
+   - Pet category filtering (dogs, cats, etc.)
+   - Pet size accommodation filtering
+   - Real-time search results
 
 3. **Personalized Recommendations**
-   - AI-powered recommendation system based on search history.
-   - Scoring system for hotel matches.
-   - Customized suggestions based on previous searches.
-   - Match percentage display for transparency.
+   - AI-powered recommendation system based on search history
+   - Scoring system for hotel matches
+   - Customized suggestions based on previous searches
+   - Match percentage display for transparency
 
 4. **Customer Service and Support**
-   - 24/7 AI-powered chatbot assistance.
-   - Automated response system for common queries.
-   - FAQ integration with chatbot responses.
-   - Seamless handoff to human support when needed.
+   - 24/7 AI-powered chatbot assistance
+   - Automated response system for common queries
+   - FAQ integration with chatbot responses
+   - Seamless handoff to human support when needed
+
+---
 
 ## Access Links
 - Production: [https://pethotelservice.up.railway.app](https://pethotelservice.up.railway.app)
 - Alternative: [https://pet-hotel-service-18222065.vercel.app](https://pet-hotel-service-18222065.vercel.app)
-- Documentation: [https://pethotelservice.up.railway.app/docs](https://pethotelservice.up.railway.app/docs)
+- Dokumen: [https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing](https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing)
+- API Documentation: [https://pethotelservice.up.railway.app/docs](https://pethotelservice.up.railway.app/docs)
+
+---
 
 ## Technology Stack
 
@@ -47,16 +56,16 @@ PawMates is a web-based application designed to help pet owners find the perfect
 
 ### Database
 - Supabase
-- Tables:
-  - users
-  - hotels
-  - search_history
 
 ### Additional Technologies
 - Google OAuth2 for authentication
 
+---
+
 ## Deployment
-The application is deployed using **Railway** with Docker containers and **Vercel** as an alternative.
+The application is deployed using **Railway** using Docker containers and **Vercel** for alternative
+
+---
 
 ## Local Development Setup
 
@@ -75,11 +84,11 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 Then fill in the required environment variables:
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-- `CALLBACK_URL`
-- `SUPABASE_URL`
-- `SUPABASE_KEY`
+- GOOGLE_CLIENT_ID
+- GOOGLE_CLIENT_SECRET
+- CALLBACK_URL
+- SUPABASE_URL
+- SUPABASE_KEY
 
 4. Run the development server:
 ```bash
@@ -87,6 +96,8 @@ uvicorn main:app --reload
 ```
 
 5. Access the application at `http://localhost:8000`
+
+---
 
 ## API Documentation
 
@@ -189,14 +200,4 @@ Page for displaying personalized recommendations.
 **Response**:
 - **200**: Returns the HTML content of the recommendations page.
 
-## Screenshots
-(Include relevant screenshots of the API documentation and application interface)
-
-## Future Enhancements
-- Add multi-language support for global users.
-- Enhance AI-powered recommendations with more sophisticated algorithms.
-- Implement real-time chat support with human agents.
-
 ---
-This document serves as a comprehensive guide for developers and users to understand and interact with PawMates efficiently.
-
