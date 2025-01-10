@@ -1,7 +1,7 @@
 # PawMates - Pet Hotel Recommendation System 🐶
 
 **Name**: Naomi Pricilla Agustine  
-**Student ID**: 18222065
+**NIM**: 18222065
 
 ---
 
