@@ -10,6 +10,16 @@ PawMates is a web-based application designed to help pet owners to find the perf
 
 ---
 
+## Access Links
+- Production: [https://pethotelservice.up.railway.app](https://pethotelservice.up.railway.app)
+- Alternative: [https://pet-hotel-service-18222065.vercel.app](https://pet-hotel-service-18222065.vercel.app)
+- Dokumen: [https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing](https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing)
+- API Documentation: [https://pethotelservice.up.railway.app/docs](https://pethotelservice.up.railway.app/docs)
+
+---
+
+---
+
 ## Features
 1. **User Authentication**
    - Google OAuth integration for secure login to access the platform
@@ -33,14 +43,6 @@ PawMates is a web-based application designed to help pet owners to find the perf
    - Automated response system for common queries
    - FAQ integration with chatbot responses
    - Seamless handoff to human support when needed
-
----
-
-## Access Links
-- Production: [https://pethotelservice.up.railway.app](https://pethotelservice.up.railway.app)
-- Alternative: [https://pet-hotel-service-18222065.vercel.app](https://pet-hotel-service-18222065.vercel.app)
-- Dokumen: [https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing](https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing)
-- API Documentation: [https://pethotelservice.up.railway.app/docs](https://pethotelservice.up.railway.app/docs)
 
 ---
 
