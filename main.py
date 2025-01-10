@@ -1,13 +1,30 @@
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from app.routes import auth, search, recommendations
 import logging
-from typing import Optional
 
 # Initialize FastAPI app
 app = FastAPI()
+
+# Allowed origins (ubah URL di sini dengan URL yang Anda izinkan)
+allowed_origins = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "https://pet-hotel-service-18222065.vercel.app",
+    "https://pethotelservice.up.railway.app" 
+]
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"], 
+    allow_headers=["*"], 
+)
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
