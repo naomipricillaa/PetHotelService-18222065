@@ -1,12 +1,24 @@
 # PawMates - Pet Hotel Recommendation System 🐶
 
 **Name**: Naomi Pricilla Agustine  
-**Student ID**: 18222065
+**NIM**: 18222065
 
 ---
 
 ## Description
 PawMates is a web-based application designed to help pet owners to find the perfect pet-friendly hotels for their furry friends. The system provides personalized hotel recommendations based on user preferences and search history, making it easier for pet owners to find accommodations that suit both their needs and their pets' requirements.
+
+---
+
+## Access Links
+- Production: [https://pethotelservice.up.railway.app](https://pethotelservice.up.railway.app)
+- Dokumen: [https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing](https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing)
+- API Documentation: [https://pethotelservice.up.railway.app/docs](https://pethotelservice.up.railway.app/docs)
+
+---
+
+## Service Integration
+- https://spotify-bot.azurewebsites.net/ belongs to **Jonathan Wiguna 18222019**
 
 ---
 
@@ -33,14 +45,6 @@ PawMates is a web-based application designed to help pet owners to find the perf
    - Automated response system for common queries
    - FAQ integration with chatbot responses
    - Seamless handoff to human support when needed
-
----
-
-## Access Links
-- Production: [https://pethotelservice.up.railway.app](https://pethotelservice.up.railway.app)
-- Alternative: [https://pet-hotel-service-18222065.vercel.app](https://pet-hotel-service-18222065.vercel.app)
-- Dokumen: [https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing](https://drive.google.com/file/d/18i24HSYXSCQ4MduMvyuMjWXynpOIEh3z/view?usp=sharing)
-- API Documentation: [https://pethotelservice.up.railway.app/docs](https://pethotelservice.up.railway.app/docs)
 
 ---
 
