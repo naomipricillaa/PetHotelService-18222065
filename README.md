@@ -17,6 +17,9 @@ PawMates is a web-based application designed to help pet owners to find the perf
 
 ---
 
+## Service Integration
+- https://spotify-bot.azurewebsites.net/ belongs to **Jonathan Wiguna 18222019**
+
 ---
 
 ## Features
